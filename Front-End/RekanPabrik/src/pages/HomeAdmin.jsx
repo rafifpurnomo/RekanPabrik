@@ -1,6 +1,6 @@
 import React from "react";
 
-function HomePelamar() {
+function HomeAdmin() {
   return (
     <div>
       <h1 className="text-3xl font-bold underline">ini home pelamar</h1>
@@ -8,4 +8,4 @@ function HomePelamar() {
   );
 }
 
-export default HomePelamar;
+export default HomeAdmin;
