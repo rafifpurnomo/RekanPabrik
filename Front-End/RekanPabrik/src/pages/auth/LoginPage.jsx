@@ -1,15 +1,59 @@
 import React, { useState } from "react";
-import { Input } from "@nextui-org/react";
-import { EyeFilledIcon } from "../assets/EyeFilledIcon";
-import { EyeSlashFilledIcon } from "../assets/EyeSlashFilledIcon";
-import gooleIcon from "../assets/Google.png";
-import logoRekanPabrik from "../assets/logoRekanPabrik.png";
+import { Input, user } from "@nextui-org/react";
+import { EyeFilledIcon } from "../../assets/EyeFilledIcon";
+import { EyeSlashFilledIcon } from "../../assets/EyeSlashFilledIcon";
+import gooleIcon from "../../assets/Google.png";
 import { Button } from "@nextui-org/react";
 import { Divider } from "@nextui-org/react";
+import Swal from "sweetalert2";
+import { login, userInfo } from "../../utils/Authentification";
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [isVisible, setIsVisible] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
   const toggleVisibility = () => setIsVisible(!isVisible);
+
+  const handleLogin = async (email, password) => {
+    if (!email.trim() || !password.trim()) {
+      Swal.fire({
+        title: "Error!",
+        text: "Email or password cannot be empty",
+        icon: "error",
+        confirmButtonText: "Continue",
+      });
+      return;
+    }
+
+    const token = await login(email, password);
+    const userinfo = await userInfo(token);
+    const convert = JSON.stringify(userinfo)
+    
+    sessionStorage.setItem("token", token);
+    sessionStorage.setItem("me", convert);
+    
+    try {
+      const user   =  JSON.parse( sessionStorage.getItem("me"));
+      if (user.role === "Pelamar") {
+        // <Navigate to="/HomePelamar" replace />;
+        navigate("/HomePelamar");
+      } else if (user.role === "HRD") {
+        // <Navigate to="/HomeHRD" replace />;
+        navigate("/HomeHRD");
+      } else if (user.role === "Admin") {
+        // <Navigate to="/HomeAdmin" replace />;
+        navigate("/HomeAdmin");
+      } else {
+        navigate("/HomeUmum");
+      }
+      
+    } catch (error) {
+      console.error(error)
+      console.log(error)  
+    }
+  };
 
   return (
     <div className="font-poppins">
@@ -29,11 +73,15 @@ function LoginPage() {
               variant="bordered"
               label="Email"
               className="w-[400px]"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <Input
               label="Password"
               variant="bordered"
               placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               endContent={
                 <button
                   className="focus:outline-none"
@@ -57,8 +105,13 @@ function LoginPage() {
             </a>
           </div>
           <div className="mt-7 flex justify-center">
-            <Button className="w-[400px] bg-[#A86108] text-white text-[16px]">
-              Log in
+            <Button
+              className="w-[400px] bg-[#A86108] text-white text-[16px]"
+              onClick={(e) => {
+                handleLogin(email, password);
+              }}
+            >
+              Login
             </Button>
           </div>
           <div className="flex items-center justify-center mt-[25px] ">
@@ -84,18 +137,6 @@ function LoginPage() {
           </div>
         </div>
       </div>
-
-      <footer className="mb-[30px]">
-        <div className="">
-          <div className="flex justify-center">
-            <hr className="w-[1000px] border-[2px] " />
-          </div>
-          <div className="flex justify-center">
-            <img src={logoRekanPabrik} alt="logo rekan pabrik" className="h-[250px]" />
-          </div>
-          <h1 className="text-center text-[12px] font-semibold">© Kelompok kosan KPK 2024. All rights reserved</h1>
-        </div>
-      </footer>
     </div>
   );
 }

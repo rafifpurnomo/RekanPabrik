@@ -53,14 +53,19 @@ class AuthUserController extends Controller
         ]);
 
         $user = User::where('email', $request->email)->first();
-        $checkedPassword = Hash::check($request->password, $user->password);
         
-        if ( $user != null && $checkedPassword == true ) {
+        if (! $user) {
+            throw ValidationException::withMessages([
+                ['anda belum membuat akun.'],
+            ]);
+        }
+
+        if (Hash::check($request->password, $user->password) ) {
 
             $token = $user->createToken('success')->plainTextToken;
             
-            return response() -> json($token);
-                 
+            return response()->json($token);
+                
         } else {
             throw ValidationException::withMessages([
                 ['Email atau password salah.'],
