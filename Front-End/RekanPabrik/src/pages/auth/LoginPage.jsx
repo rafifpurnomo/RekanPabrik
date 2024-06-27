@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Input, user } from "@nextui-org/react";
-import { EyeFilledIcon } from "../../assets/EyeFilledIcon";
-import { EyeSlashFilledIcon } from "../../assets/EyeSlashFilledIcon";
-import gooleIcon from "../../assets/Google.png";
+import { EyeFilledIcon } from "../../assets/svg/EyeFilledIcon";
+import { EyeSlashFilledIcon } from "../../assets/svg/EyeSlashFilledIcon";
+import gooleIcon from "../../assets/img/Google.png";
 import { Button } from "@nextui-org/react";
 import { Divider } from "@nextui-org/react";
 import Swal from "sweetalert2";
@@ -50,8 +50,6 @@ function LoginPage() {
       }
       
     } catch (error) {
-      console.error(error)
-      console.log(error)  
     }
   };
 

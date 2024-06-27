@@ -1,5 +1,6 @@
 import React from "react";
-import logoRekanPabrik from "../assets/logoRekanPabrik.png";
+import logoRekanPabrik from "../assets/img/logoRekanPabrik.png";
+
 function Footer() {
   return (
     <div>

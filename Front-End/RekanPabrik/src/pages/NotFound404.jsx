@@ -1,5 +1,5 @@
 import React from "react";
-import notFoundImg from "../assets/notFound404.png";
+import notFoundImg from "../assets/img/notFound404.png";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@nextui-org/button";
 
