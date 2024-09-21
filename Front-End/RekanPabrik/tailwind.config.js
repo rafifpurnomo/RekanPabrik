@@ -13,6 +13,9 @@ export default {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
       },
+      backgroundImage: {
+        'hero-pattern' : "url('/src/assets/img/iconBgGreen.png')",
+      }
     },
   },
   darkMode: "class",

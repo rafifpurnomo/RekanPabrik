@@ -16,46 +16,59 @@ import {
 } from "@nextui-org/react";
 import { Icon } from "@iconify/react";
 import logoRekanPabrik from "../assets/img/logoRekanPabrik.png";
-import defaultAvatar from "../assets/img/defaultUserPict.png"; 
+import defaultAvatar from "../assets/img/defaultUserPict.png";
 import { useNavigate } from "react-router-dom";
 
 function Nav() {
-
   const dropdownItems = [
     {
       label: "Cari Pekerjaan",
       href: "#",
     },
     {
-      label: "Riwayat lamaran",
+      label: "jelajahi perusahaan",
       href: "#",
     },
     {
-      label: "Untuk Pabrik",
+      label: "panduan berkarir",
+      href: "#",
+    },
+    {
+      label: "Untuk perusahaan",
       href: "#",
     },
   ];
 
   const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
-
-  const menuItems_IsLoggin = [
     {
-      label: "Profile",
+      label: "Cari Pekerjaan",
       href: "#",
     },
     {
-      label: "Curriculum Vitae",
+      label: "jelajahi perusahaan",
+      href: "#",
+    },
+    {
+      label: "panduan berkarir",
+      href: "#",
+    },
+    {
+      label: "Untuk perusahaan",
+      href: "#",
+    },
+    {
+      label: "tentang kami",
+      href: "#",
+    },
+    {
+      label: "Login atau register",
+      href: "/loginPage",
+    },
+  ];
+
+  const menuItems_asHRD = [
+    {
+      label: "Profil",
       href: "#",
     },
     {
@@ -64,10 +77,21 @@ function Nav() {
     },
   ];
 
+  const dropdown_asHRD = [
+    {
+      label: "buat lowongan Pekerjaan",
+      href: "#",
+    },
+    {
+      label: "notifikasi",
+      href: "#",
+    },
+  ];
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [user, setUser] = useState(null); 
-  const navigate = useNavigate()
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = sessionStorage.getItem("token");
@@ -94,55 +118,131 @@ function Nav() {
           className="sm:hidden"
         />
         <NavbarBrand className="max-sm:hidden">
-          <Link color="foreground" href="/">
-            <img src={logoRekanPabrik} alt="" className="w-[100px]" />
-          </Link>
+          {isLoggedIn ? (
+            <>
+              {user && user.role === "HRD" ? (
+                <>
+                  <Link color="foreground" href="/HomeHRD">
+                    <img src={logoRekanPabrik} alt="" className="w-[100px]" />
+                  </Link>
+                </>
+              ) : user && user.role === "ADMIN" ? (
+                <>
+                  <Link color="foreground" href="/HomeAdmin">
+                    <img src={logoRekanPabrik} alt="" className="w-[100px]" />
+                  </Link>
+                </>
+              ) : user && user.role === "PELAMAR" ? (
+                <>
+                  <Link color="foreground" href="/HomePelamar">
+                    <img src={logoRekanPabrik} alt="" className="w-[100px]" />
+                  </Link>
+                </>
+              ) : (
+                <DropdownItem key="logout" onClick={handleLogout}>
+                  Log Out
+                </DropdownItem>
+              )}
+            </>
+          ) : (
+            <>
+              <Link color="foreground" href="/">
+                <img src={logoRekanPabrik} alt="" className="w-[100px]" />
+              </Link>
+            </>
+          )}
         </NavbarBrand>
       </NavbarContent>
 
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
-        <Dropdown>
-          <NavbarItem>
-            <DropdownTrigger>
-              <Button
-                disableRipple
-                className="p-0 bg-transparent data-[hover=true]:bg-transparent text-[16px]"
-                radius="sm"
-                variant="light"
+        {isLoggedIn ? (
+          <>
+            <Dropdown>
+              <NavbarItem>
+                <DropdownTrigger>
+                  <Button
+                    disableRipple
+                    className="p-0 bg-transparent data-[hover=true]:bg-transparent text-[16px]"
+                    radius="sm"
+                    variant="light"
+                  >
+                    Pekerjaan
+                    <Icon icon="entypo:chevron-down" />
+                  </Button>
+                </DropdownTrigger>
+              </NavbarItem>
+              <DropdownMenu
+                aria-label="ACME features"
+                className="w-[340px]"
+                itemClasses={{
+                  base: "gap-4",
+                }}
               >
-                Pekerjaan
-                <Icon icon="entypo:chevron-down" />
-              </Button>
-            </DropdownTrigger>
-          </NavbarItem>
-          <DropdownMenu
-            aria-label="ACME features"
-            className="w-[340px]"
-            itemClasses={{
-              base: "gap-4",
-            }}
-          >
-            {dropdownItems.map((item, index) => (
-              <DropdownItem key={index} description={item.description}>
-                <Link href={item.href} className="text-black capitalize">
-                  {item.label}
-                </Link>
-              </DropdownItem>
-            ))}
-          </DropdownMenu>
-        </Dropdown>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Customers
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="#">
-            Integrations
-          </Link>
-        </NavbarItem>
+                {dropdown_asHRD.map((item, index) => (
+                  <DropdownItem key={index} description={item.description}>
+                    <Link href={item.href} className={`text-black capitalize`}>
+                      {item.label}
+                    </Link>
+                  </DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
+            <NavbarItem>
+              <Link color="foreground" href="#" className="capitalize">
+                profil perusahaan
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link color="foreground" href="#" className="capitalize">
+                Tentang kami
+              </Link>
+            </NavbarItem>
+          </>
+        ) : (
+          <>
+            <Dropdown>
+              <NavbarItem>
+                <DropdownTrigger>
+                  <Button
+                    disableRipple
+                    className="p-0 bg-transparent data-[hover=true]:bg-transparent text-[16px]"
+                    radius="sm"
+                    variant="light"
+                  >
+                    Pekerjaan
+                    <Icon icon="entypo:chevron-down" />
+                  </Button>
+                </DropdownTrigger>
+              </NavbarItem>
+              <DropdownMenu
+                aria-label="ACME features"
+                className="w-[340px]"
+                itemClasses={{
+                  base: "gap-4",
+                }}
+              >
+                {dropdownItems.map((item, index) => (
+                  <DropdownItem key={index} description={item.description}>
+                    <Link href={item.href} className="text-black capitalize">
+                      {item.label}
+                    </Link>
+                  </DropdownItem>
+                ))}
+              </DropdownMenu>
+            </Dropdown>
+            <NavbarItem>
+              <Link color="foreground" href="#" className="capitalize">
+                lihat profil
+              </Link>
+            </NavbarItem>
+            <NavbarItem>
+              <Link color="foreground" href="#" className="capitalize">
+                tentang kami
+              </Link>
+            </NavbarItem>
+          </>
+        )}
       </NavbarContent>
-
       <NavbarContent justify="end" className="max-sm:hidden">
         {isLoggedIn ? (
           <Dropdown>
@@ -153,8 +253,8 @@ function Nav() {
                   radius="sm"
                   variant="light"
                 >
-                  {user && user.name} {/* Example: Display user's name */}
-                  {user && user.avatar ? ( // Example: Check if user has avatar
+                  {user && user.name}
+                  {user && user.avatar ? (
                     <div>
                       <img
                         src={user.avatar}
@@ -180,23 +280,51 @@ function Nav() {
             <DropdownMenu
               aria-label="User menu"
               className="w-[240px]"
-              itemClasses={{
-                base: "gap-4",
-              }}
+              itemClasses={{ base: "gap-4" }}
             >
-              {menuItems_IsLoggin.map((item, index) => (
-              <DropdownItem key={index} description={item.description}>
-                <Link href={item.href} className="text-black capitalize">
-                  {item.label}
-                </Link>
-              </DropdownItem>
-            ))}
+              {user && user.role === "HRD" ? (
+                menuItems_asHRD.map((item, index) => (
+                  <DropdownItem key={index} description={item.description}>
+                    <Link
+                      href={item.href}
+                      className={`text-black capitalize ${
+                        item.label === "Log Out" ? "text-red-700" : ""
+                      }`}
+                    >
+                      {item.label}
+                    </Link>
+                  </DropdownItem>
+                ))
+              ) : user && user.role === "ADMIN" ? (
+                menuItems_asAdmin.map((item, index) => (
+                  <DropdownItem key={index} description={item.description}>
+                    <Link href={item.href} className="text-black capitalize">
+                      {item.label}
+                    </Link>
+                  </DropdownItem>
+                ))
+              ) : user && user.role === "PELAMAR" ? (
+                menuItems_asPelamar.map((item, index) => (
+                  <DropdownItem key={index} description={item.description}>
+                    <Link href={item.href} className="text-black capitalize">
+                      {item.label}
+                    </Link>
+                  </DropdownItem>
+                ))
+              ) : (
+                <DropdownItem key="logout" onClick={handleLogout}>
+                  Log Out
+                </DropdownItem>
+              )}
             </DropdownMenu>
           </Dropdown>
         ) : (
           <>
             <NavbarItem className="hidden lg:flex">
-              <Link className="text-[#A86108] cursor-pointer" onClick={redirectToLogin}>
+              <Link
+                className="text-[#A86108] cursor-pointer"
+                onClick={redirectToLogin}
+              >
                 Login
               </Link>
             </NavbarItem>
@@ -218,8 +346,14 @@ function Nav() {
       <NavbarMenu>
         {menuItems.map((item, index) => (
           <NavbarMenuItem key={`${item}-${index}`}>
-            <Link className="w-full text-black" href="#" size="lg">
-              {item}
+            <Link
+              href={item.href}
+              className={`w-full text-black ${
+                item.label === "Login atau register" ? "text-[#A86108]" : ""
+              }`}
+              size="lg"
+            >
+              {item.label}
             </Link>
           </NavbarMenuItem>
         ))}
