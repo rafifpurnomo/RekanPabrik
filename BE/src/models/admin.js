@@ -15,7 +15,7 @@ const addAdmin = async (email, plainpassword, role, first_name, last_name) => {
 
 const searchByEmail= async (email) => {
     const SQLQuery = "SELECT * FROM admin WHERE email = ? ";
-    return connection.execute(SQLQuery, [email]);
+    return conn.execute(SQLQuery, [email]);
 }
 
 module.exports = {

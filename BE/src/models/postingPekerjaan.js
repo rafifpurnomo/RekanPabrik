@@ -1,4 +1,4 @@
-const conn = require('../config/database')
+const conn = require('../config/db_connection')
 
 const getAllPostByIDPerusahaan = (idPerusahaan) => {
     const SQLQuery = "SELECT * FROM posting_pekerjaan WHERE id_perushaan = ?"

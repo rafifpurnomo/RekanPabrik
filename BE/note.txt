@@ -1,0 +1,26 @@
+req.body = Konteks: Biasanya digunakan untuk mengirimkan data kompleks atau sensitif, misalnya pada operasi POST, PUT, atau PATCH, di mana data dikirimkan di request body.
+req.params = unakan params jika Anda hanya membutuhkan idPerusahaan untuk mendapatkan data spesifik dan ingin URL API lebih semantik dan RESTful. Ini lebih sesuai untuk operasi GET yang mengidentifikasi suatu sumber daya.
+
+# CONFIG RULES FIREBASE
+rules_version = '2';
+
+// Craft rules based on data in your Firestore database
+// allow write: if firestore.get(
+//    /databases/(default)/documents/users/$(request.auth.uid)).data.isAdmin;
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // This rule allows anyone with your Storage bucket reference to view, edit,
+    // and delete all data in your Storage bucket. It is useful for getting
+    // started, but it is configured to expire after 30 days because it
+    // leaves your app open to attackers. At that time, all client
+    // requests to your Storage bucket will be denied.
+    //
+    // Make sure to write security rules for your app before that time, or else
+    // all client requests to your Storage bucket will be denied until you Update
+    // your rules
+    match /{allPaths=**} {
+      allow read, write: if request.time < timestamp.date(2024, 10, 22);
+    }
+  }
+}
