@@ -23,8 +23,8 @@ lib-cov
 coverage
 *.lcov
 
-#note
-.txt
+# Ignore note files
+*.txt
 note.txt
 
 # nyc test coverage
