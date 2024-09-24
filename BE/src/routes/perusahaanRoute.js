@@ -6,5 +6,6 @@ const multer = require("../middleware/multer")
 router.get("/getAllPerusahaan", perusahaanController.getAllPerusahaan);
 router.post("/createdAccountPerusahaan", perusahaanController.createAccountPerusahaan);
 router.patch('/profile', multer.single('file'), perusahaanController.updateProfilePerusahaan);
+router.get("/:idPerusahaan/cekPelamar", perusahaanController.cekPelamar)
 
 module.exports = router;

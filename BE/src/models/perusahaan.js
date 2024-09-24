@@ -23,10 +23,16 @@ const updateProfilePerusahaan = async (idPerusahaan, aboutMe, profilePict, alama
     return conn.execute(SQLQuery, [aboutMe, profilePict, alamat, idPerusahaan]);
 }
 
+const cekPelamar = async (idPerusahaan) => {
+    const SQLQuery = "SELECT p.nama_perusahaan, pel.first_name, pel.last_name,pel.email, mp.status AS status_lamaran, pp.posisi AS posisi_dilamar FROM perusahaan p JOIN posting_pekerjaan pp ON pp.id_perusahaan = p.id_perusahaan JOIN melamar_pekerjaan mp ON mp.id_post_pekerjaan = pp.id_post_pekerjaan JOIN pelamar pel ON pel.id_pelamar = mp.id_pelamar WHERE p.id_perusahaan = ? "
+    return conn.execute(SQLQuery, [idPerusahaan]);
+}
 
 module.exports = {
     getAllPerusahaan,
     addPerusahaan,
     searchByEmail,
     updateProfilePerusahaan,
+    cekPelamar,
+
 }

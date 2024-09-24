@@ -7,13 +7,15 @@ const authRoute = require('./routes/auth');
 const pelamarRoute = require('./routes/pelamarRoute');
 const perusahaanRoute = require('./routes/perusahaanRoute');
 const postingPekerjaanRoute = require('./routes/postPekerjaanRoute')
+const melamarRoute = require('./routes/melamarPekerjaanRoute')
 
 app.use(cors());
 app.use(express.json());
 app.use('/auth', authRoute);
 app.use('/pelamar', pelamarRoute);
 app.use('/perusahaan', perusahaanRoute)
-app.use('/posPekerjaan', postingPekerjaanRoute)
+app.use('/postPekerjaan', postingPekerjaanRoute)
+app.use('/melamarPekerjaan', melamarRoute)
 
 app.listen(PORT, () => {
     console.log(`Example app listening at http://localhost:${PORT}`);

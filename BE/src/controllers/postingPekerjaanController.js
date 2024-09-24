@@ -25,10 +25,11 @@ const getAllPostByIdPerusahaan = async (req, res) => {
 }
 
 const createdPostinganPekerjaan = async (req, res) => {
-    const { idPerusahaan, posisi, lokasi, jobDetails, requirements, status } = req.body;
+    const { idPerusahaan, posisi, lokasi, jobDetails, requirements } = req.body;
+    const status = "tersedia"
 
     try {
-        if (!idPerusahaan || !posisi || !lokasi || !jobDetails || !requirements || !status) {
+        if (!idPerusahaan || !posisi || !lokasi || !jobDetails || !requirements) {
             return res.status(400).json({
                 message: "Semua field harus diisi. Pastikan tidak ada field yang kosong.",
             });
@@ -58,7 +59,6 @@ const createdPostinganPekerjaan = async (req, res) => {
         });
     }
 };
-
 
 module.exports = {
     getAllPostByIdPerusahaan,

@@ -1,7 +1,7 @@
 const conn = require('../config/db_connection')
 
 const getAllPostByIDPerusahaan = (idPerusahaan) => {
-    const SQLQuery = "SELECT * FROM posting_pekerjaan WHERE id_perushaan = ?"
+    const SQLQuery = "SELECT * FROM posting_pekerjaan WHERE id_perusahaan = ?"
     return conn.execute(SQLQuery, [idPerusahaan])
 }
 

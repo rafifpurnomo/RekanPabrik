@@ -95,8 +95,23 @@ const updateProfilePerusahaan = async (req, res) => {
   }
 };
 
+const cekPelamar = async (req, res) => {
+  const {idPerusahaan} = req.params
+
+  try {
+    const [data] = await perusahaanModel.cekPelamar(idPerusahaan)
+    res.status(200).json({ 
+      message: `menampilkan pelamar di perusahaan dengan ID ${idPerusahaan}`, 
+      data: data
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+}
+
 module.exports = {
   getAllPerusahaan,
   createAccountPerusahaan,
   updateProfilePerusahaan,
+  cekPelamar,
 };
