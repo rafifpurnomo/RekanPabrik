@@ -82,7 +82,7 @@ const updateProfilePerusahaan = async (req, res) => {
     }
 
     res.status(201).json({ 
-      message: "Pengajuan berhasil ditambahkan.",
+      message: "Profile berhasil diperbarui.",
       data: result 
     });
 

@@ -60,7 +60,35 @@ const createdPostinganPekerjaan = async (req, res) => {
     }
 };
 
+const deletePostingan = async (req, res) => {
+    const {idPostPekerjaan} = req.params;
+
+    try {
+        await postPekerjaanModel.deletePostingan(idPostPekerjaan);
+        res.status(200).json({
+            message: "Postingan pekerjaan berhasil dihapus."
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+}
+
+const updateStatus = async (req, res) => {
+    const {idPostPekerjaan, status} = req.body;
+    
+    try {
+        await postPekerjaanModel.editStatusPostingan(idPostPekerjaan, status);
+        res.status(200).json({
+            message: "status pekerjaan berhasil diubah."
+        });
+    } catch (error) {
+        res.status(500).json({ message: "Server error", error: error.message });
+    }
+}
+
 module.exports = {
     getAllPostByIdPerusahaan,
-    createdPostinganPekerjaan
+    createdPostinganPekerjaan,
+    deletePostingan,
+    updateStatus
 }

@@ -18,8 +18,14 @@ const searchByEmail = async (email) => {
     return conn.execute(SQLQuery, [email]);
 }
 
+const updateProfilePelamar = async (idPelamar, aboutMe, CV, dateBirth, profile_pict) => {
+    const SQLQuery = "UPDATE pelamar SET about_me = ?, curriculum_vitae = ?, date_birth = ?, profile_pict = ? WHERE id_pelamar = ?";
+    return conn.execute(SQLQuery, [aboutMe, CV, dateBirth, profile_pict, idPelamar]);
+}
+
 module.exports = {
     getAllPelamar,
     addPelamar,
-    searchByEmail
+    searchByEmail,
+    updateProfilePelamar
 }

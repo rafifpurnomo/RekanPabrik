@@ -2,8 +2,8 @@ req.body = Konteks: Biasanya digunakan untuk mengirimkan data kompleks atau sens
 req.params = unakan params jika Anda hanya membutuhkan idPerusahaan untuk mendapatkan data spesifik dan ingin URL API lebih semantik dan RESTful. Ini lebih sesuai untuk operasi GET yang mengidentifikasi suatu sumber daya.
 
 API YANG BELUM DI BUAT
--update profile pelamar 
--reset password
--buat api key
--delete postingan pekerjaan
--edit postingan pekerjaan
+-update profile pelamar = done
+-reset password = 
+-buat api key = 
+-delete postingan pekerjaan = done
+-edit status postingan pekerjaan = done 

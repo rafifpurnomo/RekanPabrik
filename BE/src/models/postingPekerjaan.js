@@ -15,8 +15,14 @@ const deletePostingan = (idPostingan) => {
     return conn.execute(SQLQuery, [idPostingan])
 }
 
+const editStatusPostingan = (idPostingan, status) => {
+    const SQLQuery = "UPDATE posting_pekerjaan SET status = ? WHERE id_post_pekerjaan = ?"
+    return conn.execute(SQLQuery, [status, idPostingan]);
+}
+
 module.exports = {
     getAllPostByIDPerusahaan,
     addPostPekerjaan,
     deletePostingan,
+    editStatusPostingan,
 }

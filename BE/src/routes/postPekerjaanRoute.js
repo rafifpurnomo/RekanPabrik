@@ -4,5 +4,7 @@ const postPekerjaanController = require('../controllers/postingPekerjaanControll
 
 router.get('/getPost/:idPerusahaan', postPekerjaanController.getAllPostByIdPerusahaan);
 router.post('/newPostPekerjaan', postPekerjaanController.createdPostinganPekerjaan);
+router.delete('/deletePostingan/:idPostPekerjaan', postPekerjaanController.deletePostingan);
+router.patch('/updateStatusPostingan', postPekerjaanController.updateStatus);
 
 module.exports = router;
