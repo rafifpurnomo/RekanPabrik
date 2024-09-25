@@ -21,5 +21,5 @@ Latar belakang ini proyek "Website Jobseeker Bagi Para Pencari Kerja Pabrik" ber
 
 **Client:** React, TailwindCSS
 
-**Server:** Laravel
+**Server:** Laravel, express
 
