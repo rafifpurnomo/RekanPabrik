@@ -9,12 +9,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class Admin extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $table = 'users';
-    protected $primaryKey = 'ID_AKUN';
+    protected $table = 'admin';
+    protected $primaryKey = 'id_admin';
     public $incrementing = true;
     public $updated_at = false;
     public $created_at = false;
@@ -22,14 +22,9 @@ class User extends Authenticatable
     protected $fillable = [
         'email',
         'password',
+        'role',
         'nama_depan',
         'nama_belakang',
-        'usia',
-        'kelamin',
-        'tanggal_lahir',
-        'role',
-        'foto_profile',
-        'foto_beranda',
     ];
 
     protected $hidden = [
@@ -37,8 +32,6 @@ class User extends Authenticatable
     ];
 
     protected $casts = [
-        'tanggal_lahir' => 'date',
-        'kelamin' => 'string',
         'role' => 'string',
     ];
 }

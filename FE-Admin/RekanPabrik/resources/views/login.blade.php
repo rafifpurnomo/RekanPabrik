@@ -15,6 +15,15 @@
 </head>
 
 <body>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="container">
         <div class="wellcomeContainer">
             <h1 class="wellcome-txt">Wellcome</h1>
@@ -23,20 +32,24 @@
         <div class="logo">
             <img src="/assets/logoRekanPabrik.png" alt="logo rekan pabrik">
         </div>
-        <div class="form">
+        <form action="/login" method="POST" class="form">
+            @csrf
+
             <div class="emailInput">
-                <input type="email" id="emailUser" value="your-email.com">
+                <input type="email" value="" name="email" id="emailUser" placeholder="your-email.com"
+                    required>
             </div>
             <div class="passInput">
-                <input type="password" id="passUser" value="your-password">
+                <input type="password" value="" name="password" id="passUser" placeholder="your-password"
+                    required>
             </div>
             <div class="btn">
                 <a href="" class="cta-resetPass">
                     <p>Reset password</p>
                 </a>
-                <button class="login-btn"><span><i class="fa-brands fa-google"></i></span>login</button>
+                <button class="login-btn" type="submit">login</button>
             </div>
-        </div>
+        </form>
         <hr class="hr">
         <div class="loginWithGoogle">
             <button class="google-btn">
